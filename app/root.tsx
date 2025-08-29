@@ -1,75 +1,92 @@
+import type {
+  LinksFunction,
+  LoaderFunctionArgs,
+  MetaFunction,
+} from "@remix-run/node";
 import {
-  isRouteErrorResponse,
   Links,
+  LiveReload,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
-} from "react-router";
+  useLoaderData,
+  Form,
+  Link,
+} from "@remix-run/react";
+import { getUser } from "~/utils/session.server";
 
-import type { Route } from "./+types/root";
-import "./app.css";
+// ✅ Correct meta function (Remix v2 style)
+export const meta: MetaFunction = () => {
+  return [
+    { charSet: "utf-8" },
+    { title: "Remix + Mongo CRUD" },
+    { name: "viewport", content: "width=device-width,initial-scale=1" },
+  ];
+};
 
-export const links: Route.LinksFunction = () => [
-  { rel: "preconnect", href: "https://fonts.googleapis.com" },
-  {
-    rel: "preconnect",
-    href: "https://fonts.gstatic.com",
-    crossOrigin: "anonymous",
-  },
-  {
-    rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
-  },
-];
+// ✅ Optional stylesheet links (empty for now)
+export const links: LinksFunction = () => {
+  return [];
+};
 
-export function Layout({ children }: { children: React.ReactNode }) {
+// ✅ Loader: provides user info to layout
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+  const user = await getUser(request);
+  return { user };
+};
+
+export default function App() {
+  const { user } = useLoaderData<typeof loader>();
+
   return (
     <html lang="en">
       <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
       </head>
-      <body>
-        {children}
+      <body className="min-h-screen bg-gray-50 text-gray-900">
+        {/* ---- Header Nav ---- */}
+        <header className="border-b bg-white shadow-sm">
+          <nav className="mx-auto max-w-4xl flex items-center justify-between p-4">
+            <Link to="/" className="font-semibold text-lg">
+              Remix CRUD
+            </Link>
+
+            <div className="flex items-center gap-4">
+              {user ? (
+                <>
+                  <Link to="/tasks">Tasks</Link>
+                  <span className="opacity-70">Hi, {user.username}</span>
+                  <Form method="post" action="/logout">
+                    <button
+                      type="submit"
+                      className="underline text-red-600 hover:text-red-800"
+                    >
+                      Logout
+                    </button>
+                  </Form>
+                </>
+              ) : (
+                <>
+                  <Link to="/login">Login</Link>
+                  <Link to="/signup">Signup</Link>
+                </>
+              )}
+            </div>
+          </nav>
+        </header>
+
+        {/* ---- Page Content ---- */}
+        <main className="mx-auto max-w-4xl p-6">
+          <Outlet />
+        </main>
+
+        {/* ---- Remix Runtime ---- */}
         <ScrollRestoration />
         <Scripts />
+        <LiveReload />
       </body>
     </html>
-  );
-}
-
-export default function App() {
-  return <Outlet />;
-}
-
-export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  let message = "Oops!";
-  let details = "An unexpected error occurred.";
-  let stack: string | undefined;
-
-  if (isRouteErrorResponse(error)) {
-    message = error.status === 404 ? "404" : "Error";
-    details =
-      error.status === 404
-        ? "The requested page could not be found."
-        : error.statusText || details;
-  } else if (import.meta.env.DEV && error && error instanceof Error) {
-    details = error.message;
-    stack = error.stack;
-  }
-
-  return (
-    <main className="pt-16 p-4 container mx-auto">
-      <h1>{message}</h1>
-      <p>{details}</p>
-      {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
-          <code>{stack}</code>
-        </pre>
-      )}
-    </main>
   );
 }

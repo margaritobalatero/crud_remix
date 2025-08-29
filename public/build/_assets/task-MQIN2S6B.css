@@ -1,0 +1,61 @@
+/* app/styles/task.css */
+.task-container {
+  padding: 1.5rem;
+  background-color: #f9fafb;
+}
+.task-container h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.task-form,
+.task-search {
+  display: flex;
+  gap: .5rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+.task-form input,
+.task-search input {
+  border: 1px solid #d1d5db;
+  padding: .5rem;
+  border-radius: .25rem;
+}
+.task-list {
+  margin-top: 1.5rem;
+  list-style: none;
+  padding: 0;
+}
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #e5e7eb;
+  padding: .75rem;
+  border-radius: .25rem;
+}
+.task-item strong {
+  display: block;
+  font-weight: 600;
+}
+.task-item img {
+  margin-top: .5rem;
+  max-height: 6rem;
+  border-radius: .25rem;
+}
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: #00000080;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+.modal-box {
+  background: white;
+  padding: 1.5rem;
+  border-radius: .5rem;
+  max-width: 32rem;
+  width: 100%;
+  position: relative;
+}
