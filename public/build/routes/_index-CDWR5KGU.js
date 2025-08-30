@@ -6,7 +6,7 @@ import {
 } from "/build/_shared/chunk-5HGWGMBK.js";
 import {
   createHotContext
-} from "/build/_shared/chunk-HRJQ2GWM.js";
+} from "/build/_shared/chunk-KS7FHGDZ.js";
 import "/build/_shared/chunk-JR22VO6P.js";
 import {
   __toESM
@@ -45,4 +45,4 @@ window.$RefreshSig$ = prevRefreshSig;
 export {
   Index as default
 };
-//# sourceMappingURL=/build/routes/_index-XB5LGWH2.js.map
+//# sourceMappingURL=/build/routes/_index-CDWR5KGU.js.map

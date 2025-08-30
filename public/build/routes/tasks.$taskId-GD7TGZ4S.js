@@ -9,7 +9,7 @@ import {
 } from "/build/_shared/chunk-F4KNNEUR.js";
 import {
   useLoaderData
-} from "/build/_shared/chunk-PDWI34MD.js";
+} from "/build/_shared/chunk-4WVDSPX4.js";
 import "/build/_shared/chunk-PLT55Z5M.js";
 import "/build/_shared/chunk-2Z2JGDFU.js";
 import {
@@ -17,7 +17,7 @@ import {
 } from "/build/_shared/chunk-5HGWGMBK.js";
 import {
   createHotContext
-} from "/build/_shared/chunk-HRJQ2GWM.js";
+} from "/build/_shared/chunk-KS7FHGDZ.js";
 import "/build/_shared/chunk-JR22VO6P.js";
 import {
   __toESM
@@ -93,4 +93,4 @@ window.$RefreshSig$ = prevRefreshSig;
 export {
   TaskDetail as default
 };
-//# sourceMappingURL=/build/routes/tasks.$taskId-37QEMOZP.js.map
+//# sourceMappingURL=/build/routes/tasks.$taskId-GD7TGZ4S.js.map
